@@ -12,11 +12,11 @@ This is a utility tool for OpenVINO IR model file. This tool has following funct
 OpenVINOのIRモデル用のユーティリティーツールプログラムです。このツールは下記の機能を持っています。
 1. IRモデルのサマリー情報表示  
   IRバージョン、input / output blob名、shape
-2. レイヤー互換性情報
+2. レイヤー互換性情報  
   モデル内のどのレイヤーがどのデバイスでサポートできないかのチェック
-3. レイヤー検索
+3. レイヤー検索  
   正規表現を使ってレイヤーの検索
-4. レイヤー情報のダンプ
+4. レイヤー情報のダンプ  
   モデル内の全てのレイヤーを表示します（エッジの情報は表示しません
 
 ## How to Run
@@ -33,7 +33,6 @@ All tool are Python scripts. Just run them.
     `--case_sensitive` : Case sensitive on layer search  
 
 ## Examples of command output
-
 
 ### Model summary - single input file (IR version, input / output blob name and shape)
 ```sh
@@ -148,3 +147,7 @@ IR version:10
       OutputName:conv1/relu_7x7, layout:NCHW, precision:FP16, shape:[1, 64, 112, 112]
     :
 ```
+
+## Test environment
+- Windows 10
+- Intel(r) Distribution of OpenVINO(tm) toolkit 2020.2
