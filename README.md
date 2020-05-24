@@ -17,7 +17,7 @@ OpenVINOのIRモデル用のユーティリティーツールプログラムで�
 3. レイヤー検索  
   正規表現を使ってレイヤーの検索
 4. レイヤー情報のダンプ  
-  モデル内の全てのレイヤーを表示します（エッジの情報は表示しません
+  モデル内の全てのレイヤーを表示します（エッジの情報は表示しません）
 
 ## How to Run
 
@@ -45,7 +45,7 @@ Output Blob(s):
   BlobName:prob, Shape:[1, 1000], Precision:FP32
 ```
 
-### Model summary - multiple input file (IR version, input / output blob name and shape)
+### Model summary - multiple input files (IR version, input / output blob name and shape)
 ```sh
 > python ir-summary.py -d ..\..\public
 Model: ..\..\public\googlenet-v1\FP16\googlenet-v1
