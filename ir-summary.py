@@ -43,8 +43,8 @@ def checkInputOutput(model):
     global ie
     net = ie.read_network(model+'.xml', model+'.bin')
     print('Input Blob(s):')
-    for input in net.inputs:
-        print('  BlobName:{}, Shape:{}, Precision:{}'.format(input, net.inputs[input].shape, net.inputs[input].precision))
+    for input in net.input_info:
+        print('  BlobName:{}, Shape:{}, Precision:{}'.format(input, net.input_info[input].tensor_desc.dims, net.input_info[input].precision))
     print('Output Blob(s):')
     for output in net.outputs:
         print('  BlobName:{}, Shape:{}, Precision:{}'.format(output, net.outputs[output].shape, net.outputs[output].precision))
