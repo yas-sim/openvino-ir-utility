@@ -63,8 +63,7 @@ This program reads `image.jpg` and supply it to the 1st input blob as default. I
     `-m`, `--model` : Input IR model path  
     `-i`, `--input` : Input image file path (default=`image.jpg`)  
 *Output pickle file format:*  
-Dictionary `{ blobName0 : featmap0, blobName1 : featmap1, ... }`
-
+Dictionary `{ blobName0 : [ precStr0, shape0, featMap0 ], blobName1 : [ precStr1, shape1, featMap1 ], ... }`  precStr='FP32', 'FP16', 'I32', ...
 
 ## How to read and use Python pickled data
 ```python

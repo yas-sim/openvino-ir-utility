@@ -107,6 +107,11 @@ def main(args):
             continue
         if not layer.find('output') is None:
             nodeName = layer.attrib['name']
+            outputport = layer.find('output').find('port')
+            proc = outputport.attrib['precision']
+            dims = []
+            for dim in outputport.findall('dim'):                       # extract shape information
+                dims.append(dim.text)
 
             modifiedXML, targetNodeName = modifyXMLForFeatureVectorProbing(originalXML, nodeid)
             XMLstr = et.tostring(modifiedXML.getroot())
@@ -123,7 +128,7 @@ def main(args):
             inputs = prepareInputs(net.input_info, args)    # ToDo: Prepare inupts for inference. User may need to modify this function to generate appropriate input for the specific model.
             res = exenet.infer(inputs)[nodeName]
 
-            feature_vectors[nodeName] = res
+            feature_vectors[nodeName] = [proc, dims, res]
             #print(nodeName, res)
             del exenet
             del net
