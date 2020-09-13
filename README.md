@@ -53,7 +53,7 @@ All tool are Python scripts. Just run them.
 *Options:*  
     `-m`, `--model` : Input IR model path  
 *Output pickle file format:*  
-Dictionary `{ blobName0 : [ precStr0, weightBuf0 ], blobName1 : [ precStr1, weightBuf1 ], ... }`  precStr='FP32', 'FP16', 'I32', ...
+Dictionary `{ blobName0 : [ precStr0, shape0, weightBuf0 ], blobName1 : [ precStr1, shape1, weightBuf1 ], ... }`  precStr='FP32', 'FP16', 'I32', ...
 
 3. `ir_featuremap_extractor.py`  
   `model_featmap.pickle` file will be generated at the same directory as the script file when the input model file name is `model.xml`.  

@@ -36,10 +36,14 @@ def dumpWeight(model):
                     offset = int(data.attrib['offset'])
                     size   = int(data.attrib['size'])
                     blobBin = binWeight[offset:offset+size]                     # cut out the weight for this blob from the weight buffer
-                    prec = layer.find('output').find('port').attrib['precision']
+                    outputport = layer.find('output').find('port')
+                    prec = outputport.attrib['precision']
+                    dims = []
+                    for dim in outputport.findall('dim'):                       # extract shape information
+                        dims.append(dim.text)
                     formatstring = '<' + format_config[prec][0] * (len(blobBin)//format_config[prec][1])
                     decodedwgt = struct.unpack(formatstring, blobBin)           # decode the buffer
-                    weight[layer.attrib['name']] = [ prec, decodedwgt ]         # { blobName : [ precStr, weightBuf ]}
+                    weight[layer.attrib['name']] = [ prec, dims, decodedwgt ]         # { blobName : [ precStr, dims, weightBuf ]}
                     print('{} : {}'.format(len(blobBin), layer.attrib['name']))
     fname = model+'_wgt.pickle'
     with open(fname, 'wb') as f:
