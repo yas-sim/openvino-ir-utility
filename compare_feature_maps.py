@@ -64,7 +64,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-r', '--reference_feature', type=str, required=True, help='input feature map pickle file (.pickle)')
     parser.add_argument('-f', '--feature', type=str, required=True, help='input feature map pickle file to compare with the reference feature map data (.pickle)')
-    parser.add_argument('-e', '--error', type=float, default=10, help='error tolerance (%). default=10')
+    parser.add_argument('-e', '--error', type=float, default=10, help='error tolerance (%%). default=10')
     parser.add_argument('-v', '--verbose', action='store_true', default=False, help='display error values')
     parser.add_argument('-t', '--top', type=int, default=5, help='# of error values to display (per layer, with -v option)')
     args = parser.parse_args()
