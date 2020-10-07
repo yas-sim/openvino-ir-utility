@@ -27,7 +27,7 @@ def dumpWeight(model):
     root = tree.getroot()
     layers = root.find('layers')
     weight = {}
-    print('size : nodeName')
+    print('    size : nodeName')
     for layer in layers:
         if layer.attrib['type'] == 'Const':
             data = layer.find('data')

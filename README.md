@@ -218,16 +218,16 @@ IR version:10
 ```sh
 python ir_weight_extractor.py -m public\googlenet-v1\FP16\googlenet-v1.xml
 *** OpenVINO IR model weight data extractor
-size : nodeName
-6 data_add_/copy_const
-18816 175/Output_0/Data__const
-128 conv1/7x7_s2/Dims2528/copy_const
-8 pool1/norm16956/value6958_const
-  :
-256 inception_5b/pool_proj/Dims2558/copy_const
-16 loss3/classifier/flatten_fc_input/Cast_18765_const
-2048000 loss3/classifier/WithoutBiases/1_port_transpose6482_const
-2000 238/Output_0/Data_/copy_const
+    size : nodeName
+       6 : data_add_/copy_const
+   18816 : 175/Output_0/Data__const
+     128 : conv1/7x7_s2/Dims2528/copy_const
+       8 : pool1/norm16956/value6958_const
+      :
+     256 : inception_5b/pool_proj/Dims2558/copy_const
+      16 : loss3/classifier/flatten_fc_input/Cast_18765_const
+ 2048000 : loss3/classifier/WithoutBiases/1_port_transpose6482_const
+    2000 : 238/Output_0/Data_/copy_const
 
 public\googlenet-v1\FP16\googlenet-v1_wgt.pickle is generated
 ```
