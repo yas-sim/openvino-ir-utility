@@ -44,7 +44,7 @@ def dumpWeight(model):
                     formatstring = '<' + format_config[prec][0] * (len(blobBin)//format_config[prec][1])
                     decodedwgt = struct.unpack(formatstring, blobBin)           # decode the buffer
                     weight[layer.attrib['name']] = [ prec, dims, decodedwgt ]         # { blobName : [ precStr, dims, weightBuf ]}
-                    print('{} : {}'.format(len(blobBin), layer.attrib['name']))
+                    print('{:8} : {}'.format(len(blobBin), layer.attrib['name']))
     fname = model+'_wgt.pickle'
     with open(fname, 'wb') as f:
         pickle.dump(weight, f)
