@@ -19,6 +19,9 @@ This is a utility tool for OpenVINO IR model file. This tool has following funct
 6. **[NEW]** Extract the feature map (intermediate buffer between layers) from an IR model (`ir_featuremap_extractor.py`)  
   Run an IR model and extract the feature map data of all layers and generates a pickle file
 
+7. **[NEW]** Compare the feature map data files (`compare_feature_maps.py`)  
+  Compare two feature map files and check the difference. This tool might be helpful for finding a problem point in accuracy problem between different type of OpenVINO plugins.  
+  
 OpenVINOのIRモデル用のユーティリティーツールプログラムです。このツールは下記の機能を持っています。
 1. IRモデルのサマリー情報表示 (`ir-summary.py`)  
   IRバージョン、input / output blob名、shape
@@ -32,6 +35,8 @@ OpenVINOのIRモデル用のユーティリティーツールプログラムで�
 　重みデータを抜き出し、Python pickleファイルを作成します
 6. **[NEW]** 特徴マップデータ抜き取り (`ir_featuremap_extractor.py`)  
 　IRモデルを実行しながら中間バッファから特徴マップデータを抜き出し、Python pickleファイルを作成します
+7. **[NEW]** 特徴マップデータ比較ツール (`compare_feature_map.py`)  
+  ２つの特徴マップデータを比較し差異を表示。異なるOpenVINOプラグイン間での精度問題のチェックなどに使えるかもしれない。
 
 
 ## How to Run
@@ -232,6 +237,24 @@ node# : nodeName
 321 : prob
 
 Feature maps are output to 'googlenet-v1_featmap.pickle'
+```
+### Feature map comparison - `compare_feature_maps.py`
+```sh
+>python compare_feature_maps.py -f googlenet-v1_featmap_cpu.pickle -r googlenet-v1_featmap_gpu.pickle -e 10
+*** OpenVINO feature map comparator
+Error tolerance : 10%
+PASS:150528, ERROR:     0, E-Rate:  0.00%, NaN:     0, Inf:     0 - data
+PASS:150528, ERROR:     0, E-Rate:  0.00%, NaN:     0, Inf:     0 - Add_
+PASS:768060, ERROR: 34756, E-Rate:  4.33%, NaN:     0, Inf:     0 - conv1/7x7_s2/WithoutBiases
+PASS:768917, ERROR: 33899, E-Rate:  4.22%, NaN:     0, Inf:     0 - conv1/7x7_s2
+PASS:784953, ERROR: 17863, E-Rate:  2.23%, NaN:     0, Inf:     0 - conv1/relu_7x7
+  :     :      :       :
+PASS: 49824, ERROR:   352, E-Rate:  0.70%, NaN:     0, Inf:     0 - inception_5b/output
+PASS:   998, ERROR:    26, E-Rate:  2.54%, NaN:     0, Inf:     0 - pool5/7x7_s1
+PASS:   998, ERROR:    26, E-Rate:  2.54%, NaN:     0, Inf:     0 - loss3/classifier/flatten_fc_input
+PASS:   977, ERROR:    23, E-Rate:  2.30%, NaN:     0, Inf:     0 - loss3/classifier/WithoutBiases
+PASS:   974, ERROR:    26, E-Rate:  2.60%, NaN:     0, Inf:     0 - loss3/classifier
+PASS:   957, ERROR:    43, E-Rate:  4.30%, NaN:     0, Inf:     0 - prob
 ```
 
 ## Test environment

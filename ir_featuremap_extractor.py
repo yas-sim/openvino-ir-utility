@@ -119,7 +119,7 @@ def main(args):
 
             net = ie.read_network(XMLstr, weight, init_from_buffer=True)
             try:
-                exenet = ie.load_network(net, 'CPU')
+                exenet = ie.load_network(net, args.device)
             except RuntimeError:
                 #et.dump(modifiedXML)
                 print('*** RuntimeError: load_network() -- Skip node \'{}\' - \'{}\''.format(targetNodeName, nodetype))
@@ -148,7 +148,8 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--model', type=str, help='input IR model path')
-    parser.add_argument('-i', '--input', type=str, default='image.jpg', help='input image data path (default=image.jpg')
+    parser.add_argument('-i', '--input', type=str, default='image.jpg', help='input image data path (default=image.jpg)')
+    parser.add_argument('-d', '--device', type=str, default='CPU', help='device to use')
     args = parser.parse_args()
 
     main(args)
