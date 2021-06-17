@@ -12,7 +12,11 @@ This is a utility tool for OpenVINO IR model file. This tool has following funct
 
 4. Compare the feature map data files (`compare_feature_maps.py`)  
   Compare two feature map files and check the difference. This tool might be helpful for finding a problem point in accuracy problem between different type of OpenVINO plugins.  
-  
+
+5. Calculate individual output blob size of an OpenVINO IR model (`ir_output_blob_size_calculator.py`)  
+  The tool calculates the size of every output blobs in an IR model and summarize it. You can use it to identiry the memory hungry layers in the model.  
+
+
 OpenVINOのIRモデル用のユーティリティーツールプログラムです。このツールは下記の機能を持っています。
 1. IRモデルのサマリー情報表示 (`ir-summary.py`)  
   IRバージョン、input / output blob名、shape
@@ -22,7 +26,8 @@ OpenVINOのIRモデル用のユーティリティーツールプログラムで�
 　IRモデルを実行しながら中間バッファから特徴マップデータを抜き出し、Python pickleファイルを作成します
 4. 特徴マップデータ比較ツール (`compare_feature_maps.py`)  
   ２つの特徴マップデータを比較し差異を表示。異なるOpenVINOプラグイン間での精度問題のチェックなどに使えるかもしれない。
-
+5. IRモデル中のレイヤーごとのoutput blobのサイズとそのトータルを求める (`ir_output_blob_sie_calculator.py`)  
+  モデル内のどのレイヤーがメモリを多く使うのかなどの調査に利用可能
 
 ## How to Run
 
@@ -59,6 +64,11 @@ Dictionary `{ blobName0 : [ precStr0, shape0, featMap0 ], blobName1 : [ precStr1
   `-e`, `--error`             : error tolerance (%). default=10  
   `-v`, `--verbose`           : display error values  
   `-t`, `--top`               : # of error values to display (per layer, with -v option)  
+
+5. `ir_output_blob_size_calculator.py`  
+ This program calculates the size of each output blob in an OpenVINO IR model. The program reads .xml file, parse it and calculate the output blob size. This tool will give you certain level of idea which layer in the model is memory hungry and how much memory might be required to run the model.  
+ *Options:*  
+  `-m`     : input IR model file name (.xml)
 
 ------------------
 
@@ -163,6 +173,24 @@ PASS:   998, ERROR:    26, E-Rate:  2.54%, NaN:     0, Inf:     0 - loss3/classi
 PASS:   977, ERROR:    23, E-Rate:  2.30%, NaN:     0, Inf:     0 - loss3/classifier/WithoutBiases
 PASS:   974, ERROR:    26, E-Rate:  2.60%, NaN:     0, Inf:     0 - loss3/classifier
 PASS:   957, ERROR:    43, E-Rate:  4.30%, NaN:     0, Inf:     0 - prob
+```
+
+### Output blob size calculation - `ir_output_blob_size_calculator.py`  
+```sh
+> python ir_output_blob_size_calculator.py -m googlenet-v1.xml
+*** OpenVINO IR model output blob size calculator
+layer name, layer type, port num, precision, oblob_size, [dims...]
+data,Parameter,0,FP16,301056,1,3,224,224
+data_add_/copy_const,Const,1,FP16,6,1,3,1,1
+Add_,Add,2,FP16,301056,1,3,224,224
+231/Output_0/Data__const,Const,1,FP16,18816,64,3,7,7
+conv1/7x7_s2/WithoutBiases,Convolution,2,FP16,1605632,1,64,112,112
+ :
+loss3/classifier/WithoutBiases,MatMul,2,FP16,2000,1,1000
+246/Output_0/Data_/copy_const,Const,1,FP16,2000,1,1000
+loss3/classifier,Add,2,FP16,2000,1,1000
+prob,SoftMax,1,FP16,2000,1,1000
+Total output blob size : 40,878,054B / 38.98MB
 ```
 
 ## Test environment
