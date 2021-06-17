@@ -14,7 +14,7 @@ This is a utility tool for OpenVINO IR model file. This tool has following funct
   Compare two feature map files and check the difference. This tool might be helpful for finding a problem point in accuracy problem between different type of OpenVINO plugins.  
 
 5. Calculate individual output blob size of an OpenVINO IR model (`ir_output_blob_size_calculator.py`)  
-  The tool calculates the size of every output blobs in an IR model and summarize it. You can use it to identiry the memory hungry layers in the model.  
+  The tool calculates the output blob size of layers in an IR model and summarize it. You can use it to identify the memory hungry layers in the model.  
 
 
 OpenVINOのIRモデル用のユーティリティーツールプログラムです。このツールは下記の機能を持っています。
@@ -66,7 +66,7 @@ Dictionary `{ blobName0 : [ precStr0, shape0, featMap0 ], blobName1 : [ precStr1
   `-t`, `--top`               : # of error values to display (per layer, with -v option)  
 
 5. `ir_output_blob_size_calculator.py`  
- This program calculates the size of each output blob in an OpenVINO IR model. The program reads .xml file, parse it and calculate the output blob size. This tool will give you certain level of idea which layer in the model is memory hungry and how much memory might be required to run the model.  
+ This program calculates the output blob size of layers in an OpenVINO IR model. The program reads .xml file, parse it and calculate the output blob size. This tool will give you certain level of idea which layer in the model is memory hungry and how much memory might be required to run the model.  
  *Options:*  
   `-m`     : input IR model file name (.xml)
 
