@@ -1,12 +1,8 @@
 import os
 import sys
 import argparse
-import pickle
-import struct
 
 import xml.etree.ElementTree as et
-
-from openvino.inference_engine import IECore
 
 def calc_oblob_size(model):
     # for unpacking binary buffer
