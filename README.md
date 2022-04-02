@@ -1,6 +1,8 @@
 # Intel(r) OpenVINO(tm) IR model utility tool
 This is a utility tool for OpenVINO IR model file. This tool has following functions:
 
+Update on 02-APR-2022 : Add IRv11 and OpenVINO 2022.1 API2.0 Support.
+
 1. Display IR model summary information (`ir-summary.py`)  
   Displays IR version, Input/Output blob names and shapes
 
