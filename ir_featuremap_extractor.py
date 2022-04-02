@@ -32,10 +32,6 @@ def readBIN(model):
     return weight
 
 
-def modifyXMLForFeatureVectorProbing(xmltree, nodeid):
-    pass
-
-
 # TODO: You need to modify this function to make this fit to your model
 #       E.g. - If your model uses multiple inputs, you need to prepare input data for those inputs
 #            - If your model requires non-image data, you need to implement appropiate data preparation code and preprocessing for it
@@ -56,7 +52,6 @@ def prepareInputs(ir_model, args):
 
 
 def main(args):
-
     print('node# : nodeName')
     feature_vectors = {}
     ie = Core()

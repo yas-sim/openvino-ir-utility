@@ -6,9 +6,15 @@ import re
 
 import xml.etree.ElementTree as et
 
-from openvino.inference_engine import IECore
+from openvino.preprocess import PrePostProcessor
+from openvino.runtime import AsyncInferQueue, Core, InferRequest, Layout, Type
 
-ie = IECore()
+type_table = { Type.f16: 'f16', Type.f32: 'f32', Type.f64: 'f64', Type.bf16: 'bf16',
+               Type.i16: 'i16', Type.i32: 'i32', Type.i64: 'i64', Type.i8  : 'i8',
+               Type.u16: 'u16', Type.u32: 'u32', Type.u64: 'u64', Type.u8  : 'u8',
+               Type.bitwidth: 'bit', Type.boolean: 'bool' }
+
+ie = Core()
 
 def dispLayerInfo(layer, indent=4):
     l = layer
@@ -20,13 +26,13 @@ def dispLayerInfo(layer, indent=4):
 
 def checkInputOutput(model):
     global ie
-    net = ie.read_network(model+'.xml', model+'.bin')
+    net = ie.read_model(model+'.xml')
     print('Input Blob(s):')
-    for input in net.input_info:
-        print('  BlobName:{}, Shape:{}, Precision:{}'.format(input, net.input_info[input].tensor_desc.dims, net.input_info[input].precision))
+    for input in net.inputs:
+        print('  BlobName:{}, Shape:{}, Precision:{}'.format(input.get_any_name(), list(input.get_shape()), type_table[input.get_element_type()]))
     print('Output Blob(s):')
     for output in net.outputs:
-        print('  BlobName:{}, Shape:{}, Precision:{}'.format(output, net.outputs[output].shape, net.outputs[output].precision))
+        print('  BlobName:{}, Shape:{}, Precision:{}'.format(output.get_any_name(), list(output.get_shape()), type_table[output.get_element_type()]))
 
 def getIRVersion(model):
     tree = et.parse(model+'.xml')

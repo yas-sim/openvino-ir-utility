@@ -6,8 +6,6 @@ import struct
 
 import xml.etree.ElementTree as et
 
-from openvino.inference_engine import IECore
-
 def dumpWeight(model):
     # for unpacking binary buffer
     format_config = { 'FP32': ['f', 4], 
