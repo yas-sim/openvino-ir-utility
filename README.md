@@ -18,6 +18,9 @@ Update on 02-APR-2022 : Add IRv11 and OpenVINO 2022.1 API2.0 Support.
 5. Calculate individual output blob size of an OpenVINO IR model (`ir_output_blob_size_calculator.py`)  
   The tool calculates the output blob size of layers in an IR model and summarize it. You can use it to identify the memory hungry layers in the model.  
 
+6. Separate the header (XML), weight (.bin), and graph (.xml) from a compiled model for CPU (`exported_model_disassembler.py`)  
+  The tool will split the compiled model into 3 files for further analysis or study.  
+
 
 OpenVINOのIRモデル用のユーティリティーツールプログラムです。このツールは下記の機能を持っています。
 1. IRモデルのサマリー情報表示 (`ir-summary.py`)  
@@ -30,6 +33,8 @@ OpenVINOのIRモデル用のユーティリティーツールプログラムで�
   ２つの特徴マップデータを比較し差異を表示。異なるOpenVINOプラグイン間での精度問題のチェックなどに使えるかもしれない。
 5. IRモデル中のレイヤーごとのoutput blobのサイズとそのトータルを求める (`ir_output_blob_sie_calculator.py`)  
   モデル内のどのレイヤーがメモリを多く使うのかなどの調査に利用可能
+6. CPU用コンパイル済みモデルをXMLヘッダ、ウェイト(.bin)、グラフ(.xml)の３つのファイルに分解します (`exported_model_disassembler.py`)  
+  コンパイル済みモデルがどうなったかを調べたりするのに便利かもしれません。  
 
 ## How to Run
 
@@ -71,6 +76,14 @@ Dictionary `{ blobName0 : [ precStr0, shape0, featMap0 ], blobName1 : [ precStr1
  This program calculates the output blob size of layers in an OpenVINO IR model. The program reads .xml file, parse it and calculate the output blob size. This tool will give you certain level of idea which layer in the model is memory hungry and how much memory might be required to run the model.  
  *Options:*  
   `-m`     : input IR model file name (.xml)
+
+6. `exported_model_disassembler.py`  
+ This program breaks an compiled model file for CPU into 3 files. The compiled model can be created with `model.export_model()` API and the generated model data consists with multiple part, XML header, binary weight data (.bin portion), and XML graph (.xml portion).  
+ This program will generate `foo_hdr.xml`, `foo_.bin`, and `foo_.xml` from input file `foo.model`.  
+ The program takes only the file name as the command line parameter. No flags are available.
+ ```sh
+ python exported_model_disassembler.py compiled.model
+ ```
 
 ------------------
 
